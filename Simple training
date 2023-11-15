@@ -1,0 +1,19 @@
+import gymnasium as gym
+import os
+from stable_baselines3 import PPO
+from stable_baselines3.common.env_util import make_vec_env
+
+gym.register(
+     id='Reliability-v0',
+     entry_point='1 Reliability environment:Reliability',
+     max_episode_steps=350
+    #  kwargs={'size' : 1, 'init_state' : 10., 'state_bound' : np.inf},
+)
+
+envs = make_vec_env(env_id='Reliability-v0', seed=1, n_envs=5)
+RL_Path = os.path.join(r'C:\Users\PC\Desktop\Reinforcement Learning\Windmill simple\Reliability\Training', 'RL_Windmill')
+Log_Path = os.path.join(r'C:\Users\PC\Desktop\Reinforcement Learning\Windmill simple\Reliability\Training', 'Logs')
+model = PPO('MlpPolicy', envs, verbose=0, tensorboard_log=Log_Path)
+model.learn(total_timesteps=1000000, log_interval=5, progress_bar=True)
+model.save(RL_Path)
+envs.close
