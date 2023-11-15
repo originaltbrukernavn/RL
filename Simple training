@@ -7,7 +7,6 @@ gymnasium.register(
      id='Reliability-v0',
      entry_point='1 Reliability environment:Reliability',
      max_episode_steps=350
-    #  kwargs={'size' : 1, 'init_state' : 10., 'state_bound' : np.inf},
 )
 
 envs = make_vec_env(env_id='Reliability-v0', seed=1, n_envs=5)
